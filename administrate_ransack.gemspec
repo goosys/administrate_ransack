@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
   spec.files = Dir['{app,config,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
 
   spec.add_runtime_dependency 'administrate', '~> 0.14.0'
-  spec.add_runtime_dependency 'ransack', '~> 2.3.2'
+  spec.add_runtime_dependency 'ransack', '~> 1.8.7'
 
   spec.add_development_dependency 'activestorage', '~> 6.0.3.2'
   spec.add_development_dependency 'capybara', '~> 3.33.0'
