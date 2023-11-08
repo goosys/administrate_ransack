@@ -5,7 +5,7 @@
   <% collection = resource_field.associated_resource_options %>
 
   <%= form.label(label || field_key, class: 'filter-label') %>
-  <% if options&.include? 'select' %>
+  <% if (options&.include? 'select') || resource_field.options&.dig(:select).present? || AdministrateRansack.options[:has_many_field_type_default].eql?(:select) %>
     <%= form.select(field_key, collection, {}, multiple: true) %>
   <% else %>
     <%= form.collection_check_boxes(field_key, collection, :second, :first) do |b| %>
