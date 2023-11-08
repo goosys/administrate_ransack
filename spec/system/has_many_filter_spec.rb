@@ -4,6 +4,17 @@ RSpec.describe 'Has many filter', type: :system do
   let(:post2) { Post.second }
   let(:tag) { Tag.find_by!(name: 'A test tag') }
 
+  it 'filters the authors by post (with Selectize)', :aggregate_failures do
+    visit '/admin/authors'
+
+    find('.filter-posts .selectize-input').click
+    find(".filter-posts .option[data-value='#{post2.id}']").click
+    find('input[type="submit"]').trigger('click')
+
+    expect(page).to have_css('.js-table-row', count: 1)
+    expect(page).to have_css('.js-table-row a.action-show', text: post2.author.name)
+  end
+
   it 'filters the posts by tag (with Selectize)', :aggregate_failures do
     visit '/admin/posts'
 
