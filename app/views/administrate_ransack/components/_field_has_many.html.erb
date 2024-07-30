@@ -3,9 +3,15 @@
   <% field_key = AdministrateRansack.ransack?(model, {field => "1,2"}) ? field : "#{field}_id_in" %>
   <% resource_field = type.new(field, nil, Administrate::Page::Collection.new(@dashboard), resource: model.new) %>
   <% collection = resource_field.associated_resource_options %>
+  <%
+    field_type = AdministrateRansack.options&.dig(:has_many_field_type_default)
+    field_type ||= resource_field.options&.dig(:field_type)
+    field_type ||= options&.dig(:field_type)
+    field_type = field_type.to_sym.eql?(:select) ? :select : :checkbox
+  %>
 
   <%= form.label(label || field_key, class: 'filter-label') %>
-  <% if (options&.include? 'select') || resource_field.options&.dig(:select).present? || AdministrateRansack.options[:has_many_field_type_default].eql?(:select) %>
+  <% if field_type.eql?(:select) %>
     <%= form.select(field_key, collection, , {include_blank: true}, {data: {controller: :select}, multiple: true}) %>
   <% else %>
     <%= form.collection_check_boxes(field_key, collection, :second, :first) do |b| %>
