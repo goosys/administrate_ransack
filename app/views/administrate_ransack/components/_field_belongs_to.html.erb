@@ -6,5 +6,5 @@
   <% collection = resource_field.associated_resource_options %>
 
   <%= form.label(label, class: 'filter-label') %>
-  <%= form.select("#{field}_id_eq", collection, { include_blank: true }, { class: 'selectize' }) %>
+  <%= form.select("#{field}_id_eq", collection, {include_blank: true}, data: {controller: :select}) %>
 <% end %>
