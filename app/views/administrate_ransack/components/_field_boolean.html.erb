@@ -2,4 +2,4 @@
 <% values = [[t('administrate_ransack.filters.no'), false], [t('administrate_ransack.filters.yes'), true]] %>
 
 <%= form.label(label, class: 'filter-label') %>
-<%= form.select(field_key, values, include_blank: true) %>
+<%= form.select(field_key, values, {include_blank: true}, data: {controller: :select}) %>

@@ -6,7 +6,7 @@
 
   <%= form.label(label, class: 'filter-label') %>
   <% if options&.include? 'select' %>
-    <%= form.select(field_key, nil, {}, multiple: true) do %>
+    <%= form.select(field_key, nil, {include_blank: true}, {data: {controller: :select}, multiple: true}) do %>
       <%= options_from_collection_for_select(collection, :id, desc) %>
     <% end %>
   <% else %>

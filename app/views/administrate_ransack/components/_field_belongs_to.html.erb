@@ -5,5 +5,5 @@
   <% collection = association.klass.send(association.klass.respond_to?(:admin_scope) ? :admin_scope : :all) %>
 
   <%= form.label(label, class: 'filter-label') %>
-  <%= form.collection_select(field_key, collection, :id, desc, include_blank: true) %>
+  <%= form.collection_select(field_key, collection, :id, desc, {include_blank: true}, data: {controller: :select}) %>
 <% end %>
