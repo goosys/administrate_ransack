@@ -6,7 +6,7 @@
 
   <%= form.label(label || field_key, class: 'filter-label') %>
   <% if (options&.include? 'select') || resource_field.options&.dig(:select).present? || AdministrateRansack.options[:has_many_field_type_default].eql?(:select) %>
-    <%= form.select(field_key, collection, {}, multiple: true) %>
+    <%= form.select(field_key, collection, , {include_blank: true}, {data: {controller: :select}, multiple: true}) %>
   <% else %>
     <%= form.collection_check_boxes(field_key, collection, :second, :first) do |b| %>
       <%= b.label do %>

@@ -14,8 +14,6 @@
   end
 %>
 
-<% render 'administrate_ransack/javascript' %>
-
 <%= search_form_for form_path, form_options do |f| %>
   <div class="filters">
     <% attribute_types.each do |field, type| %>
