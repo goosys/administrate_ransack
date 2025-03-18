@@ -25,6 +25,13 @@ else
   Rails.application.deprecators.behavior = :raise
 end
 
+# show_exceptions is deprecated in Rails 7.1
+if Rails.gem_version >= Gem::Version.new("7.1")
+  Rails.application.config.action_dispatch.show_exceptions = :none
+else
+  Rails.application.config.action_dispatch.show_exceptions = false
+end
+
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove these lines.
 begin
