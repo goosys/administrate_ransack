@@ -7,8 +7,10 @@ RSpec.describe 'Belongs to filter' do
   it 'filters the posts by author', :aggregate_failures do
     visit '/admin/posts'
 
-    find('.filter-author .selectize-input').click
-    find(".filter-author .option[data-value='#{author.id}']").click
+    # find('.filter-author .selectize-input').click
+    # find(".filter-author .option[data-value='#{author.id}']").click
+    find('.filter-author select').click
+    find(".filter-author option[value='#{author.id}']").click
     find('input[type="submit"]').click
 
     expected_param = CGI.escape("q[author_id_eq]")
