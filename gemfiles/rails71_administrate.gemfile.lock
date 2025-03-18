@@ -2,7 +2,7 @@ PATH
   remote: ..
   specs:
     administrate_ransack (0.6.0)
-      administrate (~> 0.18)
+      administrate (>= 0.18)
       ransack (>= 2.3, < 5)
 
 GEM
