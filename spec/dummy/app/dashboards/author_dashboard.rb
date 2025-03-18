@@ -41,7 +41,7 @@ class AuthorDashboard < Administrate::BaseDashboard
 
   # RANSACK_TYPES
   RANSACK_TYPES = {
-    posts: Field::HasMany,
+    posts: Field::HasMany.with_options(select: true),
     tags: Field::HasMany,
     name: Field::String,
     name_or_email_cont: Field::String,

@@ -2,4 +2,4 @@
 <% collection = (type.respond_to?(:options) ? type.options[:collection] : []) || [] %>
 
 <%= form.label(label || field, class: 'filter-label') %>
-<%= form.select(field_key, collection, include_blank: true) %>
+<%= form.select(field_key, collection, {include_blank: true}, data: {controller: :select}) %>
