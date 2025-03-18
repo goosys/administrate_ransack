@@ -25,7 +25,8 @@
       <% component = AdministrateRansack::FILTERS[input_type] || 'field_other' %>
 
       <div class="filter filter-<%= field.to_s.parameterize %> <%= input_type.parameterize %>">
-        <%= render "administrate_ransack/components/#{component}", form: f, model: model, field: field, label: label, type: type, options: options[field] %>
+        <% field_options = options.is_a?(Hash) ? (options[field.to_s] || {}) : {} %>
+        <%= render "administrate_ransack/components/#{component}", form: f, model: model, field: field, label: label, type: type, options: field_options %>
       </div>
     <% end %>
   </div>
