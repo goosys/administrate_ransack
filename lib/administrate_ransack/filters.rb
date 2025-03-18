@@ -13,4 +13,18 @@ module AdministrateRansack
     'Administrate::Field::String' => 'field_string',
     'Administrate::Field::Text' => 'field_string'
   }.freeze
+
+  @@filters = FILTERS.dup
+
+  def self.add_filter(field_name, component_name)
+    @@filters[field_name.to_s] = component_name.to_s
+  end
+
+  def self.remove_filter(field_name)
+    @@filters.except!(field_name)
+  end
+
+  def self.filters
+    @@filters
+  end
 end

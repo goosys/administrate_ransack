@@ -46,7 +46,7 @@ class AuthorDashboard < Administrate::BaseDashboard
     name: Field::String,
     name_or_email_cont: Field::String,
     name_not_cont: Field::String,
-    age: Field::Number
+    age: Field::Age
   }.freeze
 
   # SHOW_PAGE_ATTRIBUTES
