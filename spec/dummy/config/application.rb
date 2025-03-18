@@ -5,6 +5,7 @@ require 'rails/all'
 Bundler.require(*Rails.groups)
 require 'administrate'
 require 'administrate_ransack'
+require_relative '../lib/administrate/field/age'
 
 module Dummy
   class Application < Rails::Application
@@ -22,6 +23,10 @@ module Dummy
 
     if Rails.gem_version >= Gem::Version.new("7.0")
       config.active_support.cache_format_version = 7.0
+    end
+
+    config.after_initialize do
+      AdministrateRansack.add_filter('Administrate::Field::Age', 'field_age')
     end
   end
 end

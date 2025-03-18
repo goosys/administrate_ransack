@@ -1,0 +1,7 @@
+<%= form.label(label || field, class: 'filter-label') %>
+<% if AdministrateRansack.ransack?(model, {field => "1"}) %>
+  <%= form.number_field "#{field}", min: 0, max: 100 %>
+<% else %>
+  <%= form.number_field "#{field}_gteq", min: 0, max: 100 %>
+  <%= form.number_field "#{field}_lteq", min: 0, max: 100 %>
+<% end %>
