@@ -22,7 +22,7 @@ module AdministrateRansack
       association_params = collection_names.map do |assoc_name|
         { assoc_name => %i[order direction page per_page] }
       end
-      params.permit(:search, :id, :page, :per_page, association_params, q: {})
+      params.permit(:search, :id, :_page, :per_page, association_params, q: {})
     end
 
     def ransack_search_field_permitted?(form: nil, model: nil, field: nil, label: nil, type: nil, input_type: nil, options: {})
