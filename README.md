@@ -73,6 +73,15 @@ end
 <%= render('administrate_ransack/filters', options: { tags: 'select' } ) %>
 ```
 
+- Alternatively, set the default for all _has_many_ associations
+
+```rb
+AdministrateRansack.configure do |config|
+  config.has_many_field_type_default = :select
+  # config.has_many_field_type_default = :checkbox
+end
+```
+
 - To use scopes in filters it's needed to update also the `ransackable_scopes` in the model, example:
 
 ```rb
@@ -163,6 +172,32 @@ attribute_labels = {
 <%= render('administrate_ransack/filters', attribute_types: @dashboard.class::RANSACK_TYPES) %>
 ```
 
+- When you add a field for filtering, you can add it to Administrate Ransack. You can also remove unnecessary filters. For example:
+
+```rb
+AdministrateRansack.add_filter('Administrate::Field::Age', 'field_age')
+AdministrateRansack.remove_filter('Administrate::Field::Age')
+```
+
+- You can specify conditions to skip displaying the search form even if it is added to `attribute_types`.
+
+```rb
+
+module Admin
+  class PostsController < Admin::ApplicationController
+    prepend AdministrateRansack::Searchable
+
+    def ransack_search_field_permitted?(form: nil, model: nil, field: nil, label: nil, type: nil, input_type: nil, options: {})
+      return if field == :id
+      return if input_type == 'Administrate::Field::HasOne'
+      return if input_type == 'Administrate::Field::Polymorphic'
+      return if input_type == 'Administrate::Field::Password'
+      true
+    end
+  end
+end
+```
+
 ## Sample styles
 
 - Some basic style to setup the filters as a sidebar (see the screenshot below):
@@ -247,6 +282,14 @@ Screenshot:
 
 ```erb
   <%= link_to("Tag's posts", admin_posts_path('q[tags_id_in][]': page.resource.id), class: "button") %>
+```
+
+- For security reasons, you can raise an exception when an invalid search condition is specified. By default, no exception is raised, and a flash message is displayed, resetting the search (`scoped_resource.none`).
+
+```rb
+  def handle_ransack_argument_error(error)
+    raise error
+  end
 ```
 
 ## Do you like it? Star it!
