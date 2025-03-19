@@ -26,12 +26,20 @@ module AdministrateRansack
     end
 
     def ransack_search_field_permitted?(form: nil, model: nil, field: nil, label: nil, type: nil, input_type: nil, options: {})
-      return if field == :id
-      true
+      if defined?(super)
+        super
+      else
+        return if field == :id
+        true
+      end
     end
 
     def ransack_options
-      { ignore_unknown_conditions: false }
+      if defined?(super)
+        super
+      else
+        {}
+      end
     end
 
     class << self
