@@ -5,7 +5,7 @@ module AdministrateRansack
     'Administrate::Field::BelongsTo' => 'field_belongs_to',
     'Administrate::Field::Boolean' => 'field_boolean',
     'Administrate::Field::Date' => 'field_date',
-    'Administrate::Field::DateTime' => 'field_date',
+    'Administrate::Field::DateTime' => 'field_datetime',
     'Administrate::Field::Email' => 'field_string',
     'Administrate::Field::HasMany' => 'field_has_many',
     'Administrate::Field::Number' => 'field_number',

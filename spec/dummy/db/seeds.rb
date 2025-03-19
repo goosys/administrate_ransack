@@ -25,7 +25,7 @@ tags = Tag.where.not(name: 'A test tag').pluck(:id)
     created_at: Time.now - rand(3600).seconds
   }
   attrs[:category] = 'news' if (i % 4).zero?
-  attrs[:dt] = Time.now - rand(30).days if (i % 3).zero?
+  attrs[:dt] = Time.now - rand(2..30).days if (i % 3).zero?
 
   Post.find_or_create_by!(title: "Post #{i}") do |post|
     post.assign_attributes(attrs)
