@@ -25,9 +25,15 @@ module AdministrateRansack
       params.permit(:search, :id, :page, :per_page, association_params, q: {})
     end
 
+    def ransack_search_field_permitted?(form: nil, model: nil, field: nil, label: nil, type: nil, input_type: nil, options: {})
+      return if field == :id
+      true
+    end
+
     class << self
       def prepended(base)
         base.helper_method :sanitized_order_params
+        base.helper_method :ransack_search_field_permitted?
       end
     end
 
