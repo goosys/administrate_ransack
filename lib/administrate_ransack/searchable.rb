@@ -5,7 +5,7 @@ require 'ransack'
 module AdministrateRansack
   module Searchable
     def scoped_resource
-      options = respond_to?(:ransack_options) ? ransack_options : {}
+      options = ransack_options
       begin
         @ransack_results = super.ransack(params[:q], **options)
       rescue ArgumentError => e
@@ -30,10 +30,15 @@ module AdministrateRansack
       true
     end
 
+    def ransack_options
+      { ignore_unknown_conditions: false }
+    end
+
     class << self
       def prepended(base)
         base.helper_method :sanitized_order_params
         base.helper_method :ransack_search_field_permitted?
+        base.helper_method :ransack_options
       end
     end
 

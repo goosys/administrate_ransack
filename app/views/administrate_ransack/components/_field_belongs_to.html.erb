@@ -1,7 +1,7 @@
 <% association = model.reflections[field.to_s] %>
 <% if association %>
-  <% field_key = AdministrateRansack.ransack?(model, {field => "1,2"}) ? field : "#{field}_id_eq" %>
-  <% label ||= AdministrateRansack.ransack?(model, {field => "1,2"}) ? field : "#{field}_id" %>
+  <% field_key = AdministrateRansack.ransack?(model, {field => "1,2"}, ransack_options) ? field : "#{field}_id_eq" %>
+  <% label ||= AdministrateRansack.ransack?(model, {field => "1,2"}, ransack_options) ? field : "#{field}_id" %>
   <% resource_field = type.new(field, nil, Administrate::Page::Collection.new(@dashboard), resource: model.new) %>
   <% collection = resource_field.associated_resource_options %>
 
