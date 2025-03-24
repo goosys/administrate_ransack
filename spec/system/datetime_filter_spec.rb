@@ -8,7 +8,7 @@ RSpec.describe 'DateTime filter' do
 
     datetime = DateTime.tomorrow
     fill_in('q[created_at_gteq]', with: datetime)
-    find('input[type="submit"]').click
+    find('.filters-buttons input[type="submit"]').click
 
     expect(page).to have_current_path %r{/admin/posts\?.+q%5Bcreated_at_gteq%5D=#{datetime}.*}
     expect(page).to have_css('.js-table-row', count: 1)

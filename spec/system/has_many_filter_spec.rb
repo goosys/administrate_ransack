@@ -11,7 +11,7 @@ RSpec.describe 'Has many filter' do
     # find(".filter-posts .option[data-value='#{post2.id}']").click
     find(".filter-posts label[for='q_posts_id_in_#{post2.id}']").click
     # find('input[type="submit"]').trigger('click')
-    find('input[type="submit"]').click
+    find('.filters-buttons input[type="submit"]').click
 
     expect(page).to have_css('.js-table-row', count: 1)
     expect(page).to have_css('.js-table-row a.action-show', text: post2.author.name)
@@ -23,7 +23,7 @@ RSpec.describe 'Has many filter' do
     # find('.filter-tags .selectize-input').click
     # find(".filter-tags .option[data-value='#{tag.id}']").click
     find(".filter-tags label[for='q_tags_id_in_#{tag.id}']").click
-    find('input[type="submit"]').click
+    find('.filters-buttons input[type="submit"]').click
 
     expected_param = CGI.escape("q[tags_id_in][]")
     expect(page).to have_current_path %r{/admin/posts\?.+#{expected_param}=#{tag.id}}
@@ -35,7 +35,7 @@ RSpec.describe 'Has many filter' do
     visit '/admin/tags'
 
     find("#q_posts_id_in_#{post2.id}").set(true)
-    find('input[type="submit"]').click
+    find('.filters-buttons input[type="submit"]').click
 
     expect(page).to have_css('.js-table-row', count: 1)
     expect(page).to have_css('.js-table-row a.action-show', text: tag.name)

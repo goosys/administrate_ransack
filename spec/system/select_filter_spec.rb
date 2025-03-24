@@ -6,11 +6,11 @@ RSpec.describe 'Select filter' do
   it 'filters the posts by category', :aggregate_failures do
     visit '/admin/posts'
 
-    # find('.filter-category .selectize-input').click
-    # find('.filter-category .option[data-value="story"]').click
-    find('.filter-category select').click
-    find('.filter-category option[value="story"]').click
-    find('input[type="submit"]').click
+    find('.filter-category .selectize-input').click
+    find('.filter-category .option[data-value="story"]').click
+    # find('.filter-category select').click
+    # find('.filter-category option[value="story"]').click
+    find('.filters-buttons input[type="submit"]').click
 
     expect(page).to have_current_path %r{/admin/posts\?.+q%5Bcategory_eq%5D=story.*}
     expect(page).to have_css('.js-table-row', count: 1)

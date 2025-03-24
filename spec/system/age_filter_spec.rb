@@ -17,7 +17,7 @@ RSpec.describe 'Age filter' do
     visit '/admin/authors'
 
     fill_in('q[age_lteq]', with: '28')
-    find('input[type="submit"]').click
+    find('.filters-buttons input[type="submit"]').click
 
     expect(page).to have_current_path %r{/admin/authors\?.+q%5Bage_lteq%5D=28.*}
     expect(page).to have_css('.js-table-row', count: 2)
