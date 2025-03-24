@@ -1,17 +1,22 @@
-<section class="main-content__body main-content__body--flush">
+
+<% content_for(:main) do %>
+  <section class="main-content__body main-content__body--flush">
+    <%= render(
+      "collection",
+      collection_presenter: page,
+      collection_field_name: resource_name,
+      page: page,
+      resources: resources,
+      table_title: "page-title"
+    ) %>
+
+    <%= paginate resources, param_name: '_page' %>
+  </section>
+
   <%= render(
-    "collection",
-    collection_presenter: page,
-    collection_field_name: resource_name,
-    page: page,
-    resources: resources,
-    table_title: "page-title"
+    'administrate_ransack/filters',
+    attribute_types: @dashboard.class::RANSACK_TYPES
   ) %>
+<% end %>
 
-  <%= paginate resources, param_name: '_page' %>
-</section>
-
-<%= render(
-  'administrate_ransack/filters',
-  attribute_types: @dashboard.class::RANSACK_TYPES
-) %>
+<%= render template: 'administrate/application/index', locals: local_assigns %>

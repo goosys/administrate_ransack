@@ -30,35 +30,39 @@
   </style>
 <% end %>
 
-<section class="main-content__body main-content__body--flush">
+<% content_for(:main) do %>
+  <section class="main-content__body main-content__body--flush">
+    <%= render(
+      "collection",
+      collection_presenter: page,
+      collection_field_name: resource_name,
+      page: page,
+      resources: resources,
+      table_title: "page-title"
+    ) %>
+
+    <%= paginate resources, param_name: '_page' %>
+  </section>
+
+  <% attribute_types = {
+    author: Administrate::Field::BelongsTo,
+    title: Administrate::Field::String,
+    category: Administrate::Field::Select.with_options(collection: Post.categories.to_a),
+    published: Administrate::Field::Boolean,
+    position: Administrate::Field::Number,
+    position_eq: Administrate::Field::Number,
+    tags: Administrate::Field::HasMany,
+    dt: Administrate::Field::Date,
+    created_at: Administrate::Field::DateTime,
+    recents: Administrate::Field::DateTime,
+    by_category: Administrate::Field::String
+  } %>
+
   <%= render(
-    "collection",
-    collection_presenter: page,
-    collection_field_name: resource_name,
-    page: page,
-    resources: resources,
-    table_title: "page-title"
+    'administrate_ransack/filters',
+    attribute_types: attribute_types,
+    options: { tags: 'select' }
   ) %>
+<% end %>
 
-  <%= paginate resources, param_name: '_page' %>
-</section>
-
-<% attribute_types = {
-  author: Administrate::Field::BelongsTo,
-  title: Administrate::Field::String,
-  category: Administrate::Field::Select.with_options(collection: Post.categories.to_a),
-  published: Administrate::Field::Boolean,
-  position: Administrate::Field::Number,
-  position_eq: Administrate::Field::Number,
-  tags: Administrate::Field::HasMany,
-  dt: Administrate::Field::Date,
-  created_at: Administrate::Field::DateTime,
-  recents: Administrate::Field::DateTime,
-  by_category: Administrate::Field::String
-} %>
-
-<%= render(
-  'administrate_ransack/filters',
-  attribute_types: attribute_types,
-  options: { tags: 'select' }
-) %>
+<%= render template: 'administrate/application/index', locals: local_assigns %>

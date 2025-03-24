@@ -8,7 +8,7 @@ RSpec.describe 'Number filter' do
     visit '/admin/authors'
 
     fill_in('q[age_lteq]', with: '28')
-    find('input[type="submit"]').click
+    find('.filters-buttons input[type="submit"]').click
 
     expect(page).to have_current_path %r{/admin/authors\?.+q%5Bage_lteq%5D=28.*}
     expect(page).to have_css('.js-table-row', count: 2)
@@ -19,7 +19,7 @@ RSpec.describe 'Number filter' do
     visit '/admin/posts'
 
     fill_in('q[position_eq]', with: '234')
-    find('input[type="submit"]').click
+    find('.filters-buttons input[type="submit"]').click
 
     expect(page).to have_current_path %r{/admin/posts\?.+q%5Bposition_eq%5D=234.*}
     expect(page).to have_css('.js-table-row', count: 1)

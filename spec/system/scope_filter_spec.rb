@@ -7,7 +7,7 @@ RSpec.describe 'Scope filter' do
     visit '/admin/posts'
 
     fill_in('q[by_category]', with: 'news')
-    find('input[type="submit"]').click
+    find('.filters-buttons input[type="submit"]').click
 
     expect(page).to have_current_path %r{/admin/posts\?.+q%5Bby_category%5D=news.*}
     expect(posts.count).to be_positive
