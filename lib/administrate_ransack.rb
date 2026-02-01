@@ -4,6 +4,7 @@ require 'administrate_ransack/configuration'
 require 'administrate_ransack/engine'
 require 'administrate_ransack/filters'
 require 'administrate_ransack/helpers'
+require 'administrate_ransack/search'
 require 'administrate_ransack/searchable'
 require 'administrate_ransack/version'
 
