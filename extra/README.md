@@ -29,10 +29,7 @@ bin/appraisal
 ```sh
 # Running specs all Rails/Administrate versions:
 bin/appraisal rspec
-# Running specs per Rails/Administrate versions:
-bin/appraisal rails60-administrate rspec
-bin/appraisal rails61-administrate rspec
-bin/appraisal rails70-administrate rspec
+# # Running specs per Rails/Administrate versions:
 # Using latest Administrate version:
 bin/appraisal rails71-administrate rspec
 # See gemfiles for more configurations
