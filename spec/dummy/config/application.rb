@@ -16,14 +16,7 @@ module Dummy
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
-
-    if (Rails.gem_version >= Gem::Version.new("6.1") && Rails.gem_version < Gem::Version.new("7.1"))
-      config.active_record.legacy_connection_handling = false
-    end
-
-    if Rails.gem_version >= Gem::Version.new("7.0")
-      config.active_support.cache_format_version = 7.0
-    end
+    config.active_support.cache_format_version = 7.0
 
     config.after_initialize do
       AdministrateRansack.add_filter('Administrate::Field::Age', 'field_age')
