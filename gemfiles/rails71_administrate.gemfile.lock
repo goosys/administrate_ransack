@@ -377,7 +377,7 @@ DEPENDENCIES
   puma
   rails (~> 7.1.0)
   rails-controller-testing
-  ransack (~> 4.1, >= 4.1.1)
+  ransack (= 4.3.0)
   rspec-rails
   rspec_junit_formatter
   rubocop
