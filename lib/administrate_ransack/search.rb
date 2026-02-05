@@ -23,6 +23,18 @@ module AdministrateRansack
       end
     end
 
+    def search_fields(attribute_types: {}, attribute_labels: {}, f: nil)
+      attribute_types = default_search_attributes
+      attribute_types.map do |attribute, type|
+        label = attribute_labels[attribute]
+        AdministrateRansack::SearchField.new(attribute, type, label, model, f, @ransack_options).prepare
+      end
+    end
+
+    def model
+      @scoped_resource.klass
+    end
+
     private
 
     def ransack_result(scoped_resource)
@@ -43,6 +55,10 @@ module AdministrateRansack
 
     def prepare_result(ransack_results)
       ransack_results.result(distinct: @distinct)
+    end
+
+    def default_search_attributes
+      @dashboard.attribute_types.select { |key, _value| @dashboard.collection_attributes.include?(key) }
     end
   end
 end

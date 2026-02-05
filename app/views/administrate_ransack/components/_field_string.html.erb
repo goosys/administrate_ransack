@@ -1,7 +1,7 @@
-<% if AdministrateRansack.ransack?(model, {field => "valid"}, ransack_options) %>
+<% if ransack %>
   <%= form.label(label || field, class: 'filter-label') %>
   <%= form.search_field(field) %>
-<% elsif AdministrateRansack.ransack?(model, {"#{field}_cont" => "valid"}, ransack_options) %>
+<% elsif ransack_cont %>
   <%= form.label(label || "#{field}_cont", class: 'filter-label') %>
   <%= form.search_field("#{field}_cont") %>
 <% else %>

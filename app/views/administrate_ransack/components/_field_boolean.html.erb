@@ -1,4 +1,4 @@
-<% field_key = AdministrateRansack.ransack?(model, {field => "true"}, ransack_options) ? field : "#{field}_eq" %>
+<% field_key = ransack ? field : "#{field}_eq" %>
 <% values = [[t('administrate_ransack.filters.no'), false], [t('administrate_ransack.filters.yes'), true]] %>
 
 <%= form.label(label || field, class: 'filter-label') %>

@@ -1,5 +1,5 @@
 <%= form.label(label || field, class: 'filter-label') %>
-<% if AdministrateRansack.ransack?(model, {field => Time.zone.today}, ransack_options) %>
+<% if ransack %>
   <%= form.date_field(field, value: form.object.send(field)) %>
 <% else %>
   <%= form.date_field("#{field}_gteq") %>

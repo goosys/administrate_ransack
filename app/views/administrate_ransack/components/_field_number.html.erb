@@ -1,5 +1,5 @@
 <%= form.label(label || field, class: 'filter-label') %>
-<% if AdministrateRansack.ransack?(model, {field => "1"}, ransack_options) %>
+<% if ransack %>
   <%= form.number_field "#{field}" %>
 <% else %>
   <%= form.number_field "#{field}_gteq" %>

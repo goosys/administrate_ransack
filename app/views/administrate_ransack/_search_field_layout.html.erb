@@ -1,0 +1,16 @@
+<%# locals: (search_field:, search_field_counter:, search_field_iteration:, f:) %>
+<% styles = [
+    "filter",
+    "filter-#{search_field.attribute.to_s.parameterize}",
+    "filter-#{search_field.input_type.parameterize}"
+  ]
+%>
+
+<% renderd_component = capture do %>
+  <%= yield %>
+<% end %>
+<% return if renderd_component.blank? %>
+
+<div class="<%= styles.join(" ") %>">
+  <%= renderd_component %>
+</div>
