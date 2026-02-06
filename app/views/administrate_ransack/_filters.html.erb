@@ -1,40 +1,20 @@
+<%# locals: { attribute_types: , options: } %> 
+
 <%
-  attribute_labels ||= {}
-  attribute_types ||= @dashboard.attribute_types.select { |key, _value| @dashboard.collection_attributes.include?(key) }
-  options ||= {}
+  attribute_types ||= {}
   form_options = { html: { 'data-administrate-ransack-filters': '1' } }
-  namespace = local_assigns[:namespace] || :admin
-  if local_assigns.has_key?(:search_path)
-    form_path = @ransack_results
-    form_options[:url] = search_path
-    clear_filters_path = search_path
-  else
-    form_path = [namespace, @ransack_results]
-    clear_filters_path = url_for(url_for([namespace, @ransack_results.klass]))
-  end
-  model = @ransack_results.klass
+  form_path = [namespace, @ransack_results]
 %>
 
 <%= search_form_for form_path, form_options do |f| %>
   <div class="filters">
-    <% attribute_types.each do |field, type| %>
-      <% label = attribute_labels.include?(field) ? attribute_labels[field] : nil %>
-      <% input_type = type.is_a?(Administrate::Field::Deferred) ? type.deferred_class.to_s : type.to_s %>
-      <% component = AdministrateRansack.filters[input_type] || 'field_other' %>
-      <% field_options = options.is_a?(Hash) ? (options[field.to_s] || {}) : {} %>
-
-      <% next unless ransack_search_field_permitted?(form: f, model: model, field: field, label: label, type: type, input_type: input_type, options: field_options) %>
-
-      <% renderd_component = capture do %>
-        <%= render "administrate_ransack/components/#{component}", form: f, model: model, field: field, label: label, type: type, options: field_options %>
-      <% end %>
-      <% if renderd_component.present? %>
-        <div class="filter filter-<%= field.to_s.parameterize %> <%= input_type.parameterize %>">
-          <%= renderd_component %>
-        </div>
-      <% end %>
-    <% end %>
+    <%= render(
+      partial: 'administrate_ransack/search_field',
+      layout: 'administrate_ransack/search_field_layout',
+      collection: @ransack_filter.search_fields(attribute_types:, f: f), 
+      as: :search_field,
+      locals: { f: f }) %>
   </div>
 
-  <%= render 'administrate_ransack/components/filter_buttons', form: f, clear_filters_path: clear_filters_path %>
+  <%= render 'administrate_ransack/components/filter_buttons', form: f %>
 <% end %>

@@ -18,7 +18,7 @@ module Dummy
     # the framework and any gems in your application.
 
     config.after_initialize do
-      AdministrateRansack.add_filter('Administrate::Field::Age', 'field_age')
+      # AdministrateRansack.add_filter('Administrate::Field::Age', 'field_age')
     end
   end
 end

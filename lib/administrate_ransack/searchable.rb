@@ -1,19 +1,21 @@
 # frozen_string_literal: true
 
-require 'ransack'
-
 module AdministrateRansack
   module Searchable
-    def scoped_resource
-      options = ransack_options
-      begin
-        @ransack_results = super.ransack(params[:q], **options)
-      rescue ArgumentError => e
-        handle_ransack_argument_error(e)
-        set_flash_message_as_ransack_argument_error(e)
-        @ransack_results = reset_ransack_result_on_error(super).ransack({}, **options)
+    private def filter_resources(resources, search_term:)
+      @ransack_filter = 
+        AdministrateRansack::Search.new(
+          resources,
+          dashboard,
+          params[:q],
+          options: {
+            ransack_options: respond_to?(:ransack_options, true) ? ransack_options : {},
+            distinct: respond_to?(:ransack_result_distinct, true) ? ransack_result_distinct : true
+          }
+        )
+      @ransack_filter.run.tap do |result|
+        @ransack_results = @ransack_filter.ransack_results
       end
-      @ransack_results.result(distinct: true)
     end
 
     # ref => https://github.com/thoughtbot/administrate/blob/v0.18.0/app/helpers/administrate/application_helper.rb#L72-L78
@@ -50,31 +52,5 @@ module AdministrateRansack
       end
     end
 
-    private
-
-    def set_flash_message_as_ransack_argument_error(error)
-      if error.message.eql?("Invalid sorting parameter provided")
-        flash.now[:alert] = I18n.t(
-          :invalid_sorting_parameter_provided,
-          scope: [:administrate_ransack, :errors],
-          default: error.message
-        )
-      elsif error.message.start_with?("Invalid search term ")
-        flash.now[:alert] = I18n.t(
-          :invalid_search_term,
-          search_term: error.message.split(' ')[3..].join(' '),
-          scope: [:administrate_ransack, :errors],
-          default: error.message
-        )
-      end
-    end
-
-    def handle_ransack_argument_error(error)
-      super if defined?(super)
-    end
-
-    def reset_ransack_result_on_error(super_scoped_resource)
-      super_scoped_resource.none
-    end
   end
 end
