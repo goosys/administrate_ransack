@@ -1,7 +1,0 @@
-<%= form.label(label || field, class: 'filter-label') %>
-<% if ransack %>
-  <%= form.datetime_field(field, value: form.object.send(field), step: 60) %>
-<% else %>
-  <%= form.datetime_field("#{field}_gteq", step: 60) %>
-  <%= form.datetime_field("#{field}_lteq", step: 60) %>
-<% end %>

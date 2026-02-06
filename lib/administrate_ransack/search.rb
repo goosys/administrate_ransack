@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'ransack'
-
 module AdministrateRansack
   class Search
     attr_reader :ransack_results
@@ -24,11 +22,28 @@ module AdministrateRansack
     end
 
     def search_fields(attribute_types: {}, attribute_labels: {}, f: nil)
-      attribute_types = default_search_attributes
+      attribute_types = attribute_types.presence || default_search_attributes
       attribute_types.map do |attribute, type|
         label = attribute_labels[attribute]
-        AdministrateRansack::SearchField.new(attribute, type, label, model, f, @ransack_options).prepare
-      end
+        search_field_class = search_field_class_by(type)
+        if search_field_class.blank?
+          Rails.logger.warn "No search field class for type: #{type} (attribute: #{attribute})"
+          next
+        elsif search_field_class.respond_to?(:new).blank?
+          pp search_field_class
+          Rails.logger.warn "Invalid search field class for type: #{type} (attribute: #{attribute})"
+          next
+        end
+
+        search_field_class.new(
+          attribute,
+          type,
+          label,
+          model,
+          f,
+          @ransack_options
+        ).prepare
+      end.compact.select(&:render?)
     end
 
     def model
@@ -59,6 +74,11 @@ module AdministrateRansack
 
     def default_search_attributes
       @dashboard.attribute_types.select { |key, _value| @dashboard.collection_attributes.include?(key) }
+    end
+
+    def search_field_class_by(type)
+      input_type = type.is_a?(Administrate::Field::Deferred) ? type.deferred_class.to_s : type.to_s
+      AdministrateRansack.filters[input_type]
     end
   end
 end

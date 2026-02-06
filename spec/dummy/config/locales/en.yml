@@ -31,3 +31,11 @@
 
 en:
   hello: "Hello world"
+  
+  administrate_ransack:
+    filters:
+      boolean:
+        post:
+          published:
+            'yes': "Published"
+            'no': "Unpublished"

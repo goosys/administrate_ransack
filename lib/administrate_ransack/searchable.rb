@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'ransack'
-
 module AdministrateRansack
   module Searchable
     private def filter_resources(resources, search_term:)

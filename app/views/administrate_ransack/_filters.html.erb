@@ -1,4 +1,7 @@
+<%# locals: { attribute_types: , options: } %> 
+
 <%
+  attribute_types ||= {}
   form_options = { html: { 'data-administrate-ransack-filters': '1' } }
   form_path = [namespace, @ransack_results]
 %>
@@ -8,7 +11,7 @@
     <%= render(
       partial: 'administrate_ransack/search_field',
       layout: 'administrate_ransack/search_field_layout',
-      collection: @ransack_filter.search_fields(f: f), 
+      collection: @ransack_filter.search_fields(attribute_types:, f: f), 
       as: :search_field,
       locals: { f: f }) %>
   </div>

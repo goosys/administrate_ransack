@@ -1,7 +1,0 @@
-<%= form.label(label || field, class: 'filter-label') %>
-<% if ransack %>
-  <%= form.date_field(field, value: form.object.send(field)) %>
-<% else %>
-  <%= form.date_field("#{field}_gteq") %>
-  <%= form.date_field("#{field}_lteq_end_of_day") %>
-<% end %>

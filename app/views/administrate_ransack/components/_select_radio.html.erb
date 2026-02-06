@@ -1,0 +1,8 @@
+<%# locals: { form: , model: , field: , label: , type: , label_attr: , input_attr: , options: , collection: } %>
+
+<%= form.collection_radio_buttons(input_attr, collection, :second, :first) do |b| %>
+  <%= b.label do %>
+    <%= b.radio_button %>
+    <span><%= b.text %></span>
+  <% end %>
+<% end %>

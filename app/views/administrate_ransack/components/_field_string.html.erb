@@ -1,9 +1,0 @@
-<% if ransack %>
-  <%= form.label(label || field, class: 'filter-label') %>
-  <%= form.search_field(field) %>
-<% elsif ransack_cont %>
-  <%= form.label(label || "#{field}_cont", class: 'filter-label') %>
-  <%= form.search_field("#{field}_cont") %>
-<% else %>
-  <%# render nothing %>
-<% end %>
